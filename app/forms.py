@@ -130,7 +130,7 @@ class ItensForm(FlaskForm):
 
         foto.save(caminho)
 
-        if self.foto2.data != None:
+        if self.foto2.data != '' or None:
 
             foto2 = self.foto2.data
             nome_seguro2 = secure_filename(foto2.filename)
@@ -148,7 +148,7 @@ class ItensForm(FlaskForm):
         else:
             nome_seguro2 = None
 
-        if self.foto3.data != None:
+        if self.foto3.data != '' or None:
             foto3 = self.foto3.data
             nome_seguro3 = secure_filename(foto3.filename)
 
@@ -165,7 +165,7 @@ class ItensForm(FlaskForm):
         else:
             nome_seguro3 = None
 
-        if self.foto4.data != None:
+        if self.foto4.data != '' or None:
             foto4 = self.foto4.data
             nome_seguro4 = secure_filename(foto4.filename)
             #acho que o erro é que ele se enrola nesses if e fracassa o resto
