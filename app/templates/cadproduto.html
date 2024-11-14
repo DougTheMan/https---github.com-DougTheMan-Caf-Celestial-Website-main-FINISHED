@@ -1,0 +1,95 @@
+
+{% extends 'base.html' %}
+
+    {% block BlockTitulo %}
+
+    ADM - Café Celestia
+
+    {% endblock %}
+
+{% include 'nave.html' %}
+
+{% include 'naveadm.html' %}
+
+    {% block BlockConteudo %}
+
+
+    <div class="container">
+
+            <hr>
+        <div class="row mt-4">
+            <h2 style="background-color: #0b3c49; color: white; border-radius: 5px; padding-bottom: 5px;">Cadastrando Produtos</h2>
+        </div>
+            <form action="" method="POST" enctype="multipart/form-data" class="row mt-4 p-4 round border shadow" style="background-color: #debd90; border-radius: 5px;">
+                {{form.csrf_token}}
+
+                {{form.titulo.label()}}
+                {{form.titulo(class="form-control")}}
+
+                
+                {{form.descricao.label()}}
+                {{form.descricao(class="form-control ")}}
+
+                
+                {{form.qntdestoque.label()}}
+                {{form.qntdestoque(class="form-control ")}}
+
+                {{form.preco.label()}}
+                {{form.preco(class="form-control")}}
+
+                {{form.especial.label()}}
+                {{form.especial(class="form-control")}}
+
+                {{form.foto.label()}}
+                {{form.foto(class="form-control")}}
+
+                {{form.foto2.label()}}
+                {{form.foto2(class="form-control")}}
+
+                {{form.foto3.label()}}
+                {{form.foto3(class="form-control")}}
+
+                {{form.foto4.label()}}
+                {{form.foto4(class="form-control")}}
+
+                {{form.btnSubmit(class="btn btn-primary form-control col-12 mt-3")}} 
+            </form>
+        
+
+        <hr>
+        <div class="row mt-4">
+            <h3 class="text-center">Edição de produtos</h3>
+            <br>
+            <div class="row" style="background-color: #23373D; padding-bottom: 13px; padding-top: 11px; border-radius: 10px;">
+                {% for linha in context['dados'] %}
+                    <div class="col-md-4 col-lg-3 mb-4" style="display: flex; justify-content: center;">
+                        <div class="card me-2 mt-2" style="width: 18rem;">
+                            {% if linha.foto %}
+                                <img src="/static/img/fotos/{{linha.foto}}" class="card-img-top mt-2 rounded" style="display: block; margin: 0 auto; max-height: 180px; object-fit: cover;" alt="{{linha.foto}}">
+                            {% endif %}
+                            <div class="card-body">
+                                <h4 class="card-title">{{linha.titulo}}</h4>
+                                <h5>Preço: {{linha.preco}} R$</h5>
+                                <p class="card-text">{{linha.avaliacao}} Estrelas</p>
+                                <p class="card-text">{{linha.descricao_resumo()}}</p>
+                                <div class="text-center">
+                                    <a class="btn" href="{{url_for('DetalhesItemPage', id=linha.id)}}" target="_blank">Acessar Item</a>
+                                    <br>
+                                    <a class="btn btn-danger" href="{{url_for('DelItemPage', id=linha.id)}}">DELETAR</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+
+    
+
+        </div>
+
+    {% include 'naverodapé.html' %}
+
+    {% endblock %}
+    

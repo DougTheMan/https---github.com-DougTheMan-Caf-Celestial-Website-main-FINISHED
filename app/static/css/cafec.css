@@ -1,0 +1,280 @@
+@keyframes animate {
+    0%{
+        scale:1;
+        opacity: 0.9;
+    }
+    100%{
+        scale:1.03;
+    }
+}
+
+@keyframes animate2 {
+    0%{
+        scale:1.03;
+    }
+    100%{
+        scale:1;
+    }
+}
+
+@keyframes girar {
+    0%,100%{
+        transform: rotate(-0.25turn);
+        scale:1;
+    }
+    50%{
+        transform: rotate(-0.50turn);
+        scale:1.05;
+    }
+}
+
+.girar{
+    
+}
+
+.girar:hover{
+    animation: girar 1s ease-in-out forwards;
+}
+
+.zoombtn{
+    animation: animate2 0.2s ease-in-out forwards;
+}
+.zoombtn:hover{
+    animation: animate 0.2s ease-in-out forwards;
+}
+
+@keyframes flutuar {
+
+    0%,100%{
+        transform: translateY(10px);
+    }
+
+    50%{
+        transform: translateY(-10px);
+    }
+    
+}
+
+.flutuar{
+    animation: flutuar 5s infinite ease-in-out;
+}
+
+
+html {
+    scroll-behavior: smooth;
+
+  }
+
+  body {
+    overflow-x: hidden;
+}
+
+#btnpesquisa {
+    background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqzZfUfLjHnGNPgkwZ_MRqrzKR094elrGWWQ&s);
+    background-size: 30px;
+    background-repeat: no-repeat;
+    background-position: right;
+    background-color: transparent;
+    color: transparent;
+    width: 35px;
+    height: 31.8px;
+    border-right: transparent;
+    border-left: transparent;
+    border-top: transparent;
+    border-bottom: transparent;
+}
+
+#buscabarra {
+    font-size: smaller;
+    width: 400px;
+    height: 35px;
+    border-right: transparent;
+    border-left: transparent;
+    border-top: transparent;
+    background-color: #0b3c49;
+    color: white;
+    border-radius: 10px;
+}
+
+@keyframes animacaoprod {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animacao {
+    animation: animacaoprod 1s ease-out;
+}
+
+@keyframes respirar{
+    0%, 100%{
+        color: #C78752;
+        scale: 1;
+    }
+    50%{
+        color: #d17d38;
+        scale: 1.0008;
+    }
+}
+
+.respirar{
+    animation: respirar 5s infinite ease-in-out;
+}
+
+a:hover:link{
+    font-weight: bold;
+  }
+
+.muda-cor{
+    mix-blend-mode:invert;
+}
+
+@keyframes rotacao3d {
+    0%{
+        scale: 0;
+        transform: rotate3d(5,5,5,45deg);
+    }
+    60%{
+        scale:1.10;
+        transform: rotate3d(3,0,0,200deg);
+    }
+    80%{
+        scale:1.10;
+        transform: rotate3d(3,0,0,200deg);
+    }
+    100%{
+
+        transform: rotate3d(0,0,0,0deg);
+    }
+    
+}
+
+.animacao3d{
+    animation: rotacao3d 1s ease-in-out forwards;
+}
+
+@keyframes rotacao3d2 {
+    0%{
+        scale: 0;
+        transform: rotate3d(-5,0,-10,-45deg);
+    }
+    60%{
+        scale:1.10;
+        transform: rotate3d(-5,-10,0,-200deg);
+    }
+    80%{
+        scale:1.10;
+        transform: rotate3d(-15,-10,-10,-0deg);
+    }
+
+    100%{
+
+        transform: rotate3d(5,0,0,0deg);
+    }
+    
+}
+
+.animacao3d2{
+    animation: rotacao3d2 1.2s ease-in-out forwards;
+}
+
+
+@keyframes textesquerda {
+    0%{
+        opacity: 0.0;
+    }
+    80%{
+        opacity: 0.0;
+        transform: translateX(0px);
+        transform: translateY(-100px);
+    }
+    100%{
+        opacity: 1;
+        transform: translateX(-100px);
+        transform: translateY(-80px);
+
+    }   
+    
+}
+
+.animacaotextesquerda{
+    animation: textesquerda 1.5s ease-in-out forwards;
+    color: #FFFF;
+}
+
+table.calendar {
+    width: 70%;
+    margin: auto;
+    border-collapse: collapse;
+}
+
+table.calendar th,
+table.calendar td {
+    border: 1px solid #ddd;
+    padding: 5px;
+    width: 14.28%;
+    font-size: 14px;
+}
+
+table.calendar th {
+    background-color: #f4f4f4;
+}
+
+table.calendar td.day {
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+table.calendar td.day:hover {
+    background-color: #333;
+    color: #fff;
+}
+
+table.calendar td.day.reserved {
+    background-color: red;
+    color: white;
+    cursor: not-allowed;
+}
+
+.controls {
+    margin: 10px 0;
+}
+
+.controls button {
+    padding: 10px;
+    font-size: 16px;
+    margin: 0 5px;
+}
+
+@media (max-width: 600px) {
+    table.calendar {
+        width: 100%;
+    }
+    table.calendar td {
+        font-size: 12px;
+    }
+    .controls button {
+        padding: 8px;
+        font-size: 14px;
+    }
+}
+
+#prevMonth{
+    background-color: #debd90;
+    border-color: #cbd2d0;
+    border-top-left-radius: 200px;
+    border-bottom-left-radius: 200px;
+}
+
+#nextMonth{
+    background-color: #debd90;
+    border-color: #cbd2d0;
+    border-top-right-radius: 200px;
+    border-bottom-right-radius: 200px;
+}

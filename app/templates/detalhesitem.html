@@ -1,0 +1,326 @@
+
+{% extends 'base.html' %}
+
+{% block BlockTitulo %}
+{{ item.titulo }}
+{% endblock %}
+
+{% include 'nave.html' %}
+
+{% block BlockConteudo %}
+
+<style>
+div.a {
+  position: absolute;
+  right: 150px;
+} 
+
+
+</style>
+
+<div class="container">
+
+    <div class="row mt-5" style="padding-top: 50px;">
+        <div class="col-4 col-md-2">
+            <div style="display: flex; justify-content: center; align-items: center; overflow: hidden; flex-shrink: 0; max-height: max-content; min-height: min-content; min-height: min-content;">
+                <div class="nav flex-column me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+
+                    <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">
+                        <img class="rounded ms-2 me-2" height="60" src="/static/img/fotos/{{ item.foto }}" alt="{{ item.foto }}">
+                    </button>
+
+                    {% if item.foto2 %}
+                    <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">
+                        <img class="rounded me-2" height="60" src="/static/img/fotos/{{ item.foto2 }}" alt="{{ item.foto2 }}">
+                    </button>
+                    {% endif %}
+
+                    {% if item.foto3 %}
+                    <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">
+                        <img class="rounded me-2" height="60" src="/static/img/fotos/{{ item.foto3 }}" alt="{{ item.foto3 }}">
+                    </button>
+                    {% endif %}
+
+                    {% if item.foto4 %}
+                    <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">
+                        <img class="rounded me-2" height="60" src="/static/img/fotos/{{ item.foto4 }}" alt="{{ item.foto4 }}">
+                    </button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-6 col-md">
+            <div class="row">
+                <div style="display: flex; justify-content: center; align-items: center; overflow: hidden; flex-shrink: 0; max-height: max-content; min-height: min-content; min-height: 450px;">
+                    
+                    <div class="tab-content" id="v-pills-tabContent">
+                        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab" tabindex="0">
+                            <img class="rounded img-fluid" height="100%;" width="100%" src="/static/img/fotos/{{ item.foto }}" alt="{{ item.foto }}">
+                        </div>
+
+                        {% if item.foto2 %}
+                        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab" tabindex="1">
+                            <img class="rounded img-fluid" height="100%;" width="100%" src="/static/img/fotos/{{ item.foto2 }}" alt="{{ item.foto2 }}">
+                        </div>
+                        {% endif %}
+
+                        {% if item.foto3 %}
+                        <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab" tabindex="2">
+                            <img class="rounded img-fluid" height="100%;" width="100%" src="/static/img/fotos/{{ item.foto3 }}" alt="{{ item.foto3 }}">
+                        </div>
+                        {% endif %}
+
+                        {% if item.foto4 %}
+                        <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab" tabindex="3">
+                            <img class="rounded img-fluid" height="100%;" width="100%" src="/static/img/fotos/{{ item.foto4 }}" alt="{{ item.foto4 }}">
+                        </div>
+                        {% endif %}
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="col-12 col-md">
+            <div class="row" style="background-color: #C78752; border-radius: 4px;">
+                <p>Classificação
+                    {% if item.qntd_vendidas != 0 %}
+                    {{ (item.avaliacao / item.qntd_vendidas) | round(1) }}
+                {% else %} 
+                    {{ (item.avaliacao / (item.qntd_vendidas + 1)) | round(1) }}
+                {% endif %} </p>
+
+
+            </div>
+            <div class="row" style="background-color: #C78752; border-radius: 4px;">
+                <h1>{{ item.titulo }}</h1>
+            </div>
+        
+            <br><br>
+        
+            <div class="row">
+                <p>Descrição:</p>
+                <p>{{ item.descricao }}</p>
+            </div>
+        
+            <br><br>
+        
+            <div class="row">
+                <h1>PREÇO: {{ item.preco }} R$</h1>
+                <p>Quantidade em estoque: {{ item.qntdestoque }}</p>
+            </div>
+        
+            
+            <br>
+        
+            <div class="row">
+                <div class="col mt-1">
+                    <p>Quantidade escolhida:</p>
+                </div>
+                <div class="col">
+                    <form action="" method="POST" enctype="" class="">
+                        {{ form.csrf_token() }}
+        
+                        {{ form.qntd_item.label(class="fs-5") }}
+                        {{ form.qntd_item(class="form-control text-center", value=1)}}
+                        
+                        {% if erro_mensagem != None %}
+                                <div class=" mt-2 p-2 bg-danger text-light rounded">
+                                
+                                    <h5 class="rounded fs-5 text-center">
+                                        Atenção! {{ erro_mensagem }}
+                                    </h5>
+        
+                                </div>
+                        {% endif %}
+                        
+                        {% if item.qntdestoque <= 0 %}
+                        <div class="mt-2 p-5 border rounded bg-danger text-light fs-4">
+                            <p>Esse item infelizmente acabou no estoque...</p>
+                        </div>
+                        {% else %}
+
+                            {% if current_user.is_authenticated == True %}
+
+                                <div class="mt-2 p-4 border rounded" style="background-color: #C78752;">
+                                    {{ form.btnSubmit(class="btn form-control fs-4 text-light") }}
+                                </div>
+
+                            {% else %}
+
+                                <div class="mt-2 p-4 border rounded" style="background-color: #C78752;">
+                                    <!-- Button trigger modal -->
+                                    <p class="btn fs-4 text-center text-light " data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                         Adicionar ao Carrinho
+                                    </p>
+                                    
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="transform:translateY(25%); align-self: center;">
+                                            <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Você Precisa logar para comprar!</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                                <a type="button" href="{{url_for('LoginPage')}}" target="_blank" class="btn btn-primary">Fazer Login</a>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
+
+
+                                </div>
+
+                            {% endif %}
+
+                        {% endif %}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    {% if useratual.adm == 1 %}
+    <div class="a" >
+        <a class="btn btn-primary" href="{{url_for('EditPage', id=item.id)}}" style="background-color: #C78752;" >Editar Item</a>
+    </div>
+    {% endif %}
+
+
+    <div class="row mt-4">
+        
+
+        <div class="row mt-4">
+
+                <div class="row">
+                    {% if permissao_para_comentar == True %}
+                    <a data-bs-toggle="modal" data-bs-target="#exampleModal" style="width: max-content;">
+                        <div>
+                            {% if permissao_para_comentar %}  {# MUDANÇA: Verifica permissão para exibir botão de adicionar comentário #}
+                                <div class="btn text-light p-2" style="background-color: #C78752;">
+                                    Adicionar comentário
+                                </div>
+                            {% else %}
+                                Não é possível fazer comentários sem comprar o produto.
+                            {% endif %}
+                        </div>
+                    </a>
+                    {% endif %}
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h1 class="modal-title fs-5" id="exampleModalLabel">O que você achou de {{item.titulo}}?</h1>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>  
+                            <div class="modal-body">
+                                <form method="POST" enctype="multipart/form-data" class="row mt-4 p-4 round border">
+                                    {{ form2.csrf_token() }}
+                                    {{ form2.estrela.label() }}
+                                    {{ form2.estrela(class="form-control") }}
+                                    {{ form2.descricao.label() }}
+                                    {{ form2.descricao(class="form-control text-break", style="height:120px;", rows="4") }}
+                                    
+
+                                
+                            </div>
+                            <div class="modal-footer">
+                                <div class="col">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                </div>
+                                <div class="">{{ form2.btnSubmit(class="btn btn-primary form-control ") }}
+                                </form>
+                                </div>
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                    <div class="col"><hr></div>
+                </div>
+                
+
+                <div class="row">
+
+                    {% if item.reviews %}
+                        {% for linha in item.reviews %}
+
+                            <div class="row animacao shadow rounded mt-2 me-2" style="background-color: rgb(222, 189, 144, 0.8);">
+                                    
+                                <div class="col fs-4">
+                                    <div class="bg-light rounded mt-2" style="padding-right: 10px;padding-left: 10px;width:150px;">
+                                        {% for i in range(linha.estrela) %}
+                                            <img src="/static/img/estrela.png" alt="Estrela" style="width: 20px; height: 20px;">
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="col text-end">
+                                    <div class="btn  text-end mt-4" style="width: max-content;">
+                                        {% if current_user.is_authenticated == True %}
+                                        <img height="32px" src="{{url_for('static',filename='img/flag.png')}}">
+                                        <a data-bs-toggle="modal" data-bs-target="#exampleModal2">Denunciar Comentário</a> 
+                                        {% endif %}
+                                    </div>
+
+                                    {% for linha2 in context2['dados2'] %}
+                                    {% if linha.id_usuario == linha2.id %}
+                                    
+                                    <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                          <div class="modal-content">
+                                            <div class="modal-header">
+                                              <h1 class="modal-title fs-5" id="exampleModalLabel">Denunciar o comentário?</h1>
+                                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>  
+                                            <div class="modal-body">
+                                                <form method="POST" enctype="multipart/form-data" class="row mt-4 p-4 round border">
+                                                    {{ form3.csrf_token() }}
+                                                    {{ form3.motivo.label() }}
+                                                    {{ form3.motivo(class="form-control") }}
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <div class="col">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                                </div>
+                                                <a class="btn btn-danger" href="{{url_for('Denunciando',motivoR=form3.motivo.value ,id_itemR=linha2.id, id_usuarioR=linha.id_usuario, id_reviewR=linha.id )}}">Denunciar</a>
+                                                </form>
+                                                </div>
+                
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                </div>
+
+                                
+                                    <p class="ms-2 fs-4" style="font-weight: bolder;">
+                                        {{linha2.usuario}}
+                                    </p>
+                                {% endif %}
+                                {% endfor %}
+
+                                <p class="ms-4 fs-4">"{{ linha.descricao }}"</p>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p>Nenhuma review encontrada.</p>
+                    {% endif %}
+                </div>
+
+        </div>
+    </div>
+
+</div>
+    
+
+{% include 'naverodapé.html' %}
+{% endblock %}

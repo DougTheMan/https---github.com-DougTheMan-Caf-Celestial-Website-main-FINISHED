@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+
+{% block BlockTitulo %}
+Produtos - Café Celestia
+{% endblock %}
+
+{% include 'nave.html' %}
+
+{% block BlockConteudo %}
+
+<style>
+#buscabarra{
+ border-bottom: transparent;
+
+}
+</style>
+
+
+
+</div>
+<br class="mt-2 p-2">
+
+<div class="row text-center mt-4" style="display: flex; align-items: center;">
+    <form action="{{ url_for('MenuPesquisaPage')}}" method="POST">
+        <input class="fs-5" type="text" id="buscabarra" name="pesquisa" placeholder="Buscar" autocomplete="off">
+        <input type="submit" id="btnpesquisa" value="">
+    </form>
+</div>
+
+<br class="mt-2 p-2">
+
+<div class="row ">
+    <div class="">
+
+        <div class="row p-1 rounded" style="background-color: #C78752;">
+            <br>
+            <div class="col text-start" style="transform: scaleX(-1);">
+                <img src="{{url_for('static',filename='img/Group 11.png')}}" style="max-height: 50px;">
+            </div>
+
+            <div class="col">
+                <h4 class="mt-2 p-2" style="color: #FFFDFD; display: flex; justify-content: center; align-items: center;">Destaques</h4>
+            </div>
+
+            <div class="col">
+                <img src="{{url_for('static',filename='img/Group 11.png')}}" style="max-height: 50px;">
+            </div>
+            <br>
+        </div>
+
+        <div class="container">
+            <div class="row justify-content-center mt-2 p-2 animacao">
+                <br>
+                {% for linha in context['dados'] %}
+                {% if linha.especial == 1 %}
+                    {% if linha.qntdestoque <= 0 %}
+             
+                    <div class="shadow rounded mt-2 me-2 zoombtn" style="width: 350px; background-color: #dbdbdb;">
+                        <h3 class="text-center">Fora de Estoque</h3>
+                    {% else %}
+                    <div class="col-2 col-md-2 shadow rounded mt-2 me-2 zoombtn" style="width: 350px; background-color: #DEBD90;">
+                    {% endif %}
+                        <a class="text-decoration-none text-dark" href="{{url_for('DetalhesItemPage',id=linha.id)}}">
+                            {% if linha.foto == None %}{% else %}
+                                <img src="/static/img/fotos/{{linha.foto}}" style="display: flex; justify-content: center; align-items: center; overflow: hidden; flex-shrink: 0;height: 240px;" class="card-img-top mt-2 rounded" alt="{{linha.foto}}">
+                            {% endif %}
+                            <div class="row mt-4">
+                                <h5 class="text-center">{{linha.titulo}}</h5>
+                                <h3 class="ms-2">R$ {{linha.preco}} <span class="" style="font-size: 12px;"> á vista </span></h3>
+                                <p class="text-light "> <span class="badge" style="background-color: #C78752;"> 
+                                    
+                                    {% if linha.qntd_vendidas != 0 %}
+                                    {{ (linha.avaliacao / linha.qntd_vendidas) | round(1) }}
+                                {% else %} 
+                                    {{ (linha.avaliacao / (linha.qntd_vendidas + 1)) | round(1) }}
+                                {% endif %}
+                                
+
+                                </span> Estrelas </p>
+                                <div class="text-center">
+                                    <a class="btn p-3" href="{{url_for('DetalhesItemPage',id=linha.id)}}" >Acessar Item</a>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+
+            <!-- Outros Itens Header -->
+            <div class="row p-1 rounded" style="background-color: #0B3C49;">
+                <br>
+                <div class="col text-start" style="transform: scaleX(-1);">
+                    <img src="{{url_for('static',filename='img/L.png')}}" style="max-height: 50px; margin-top: 5px; transform: scaleX(-1);">
+                </div>
+
+                <div class="col">
+                    <h4 class="mt-2 p-2" style="color: #FFFDFD; display: flex; justify-content: center; align-items: center;">Outros Itens</h4>
+                </div>
+
+                <div class="col">
+                    <img src="{{url_for('static',filename='img/L.png')}}" style="max-height: 50px; margin-top: 5px; transform: scaleX(-1);">
+                </div>
+                <br>
+            </div>
+
+            <div class="row justify-content-center mt-2 p-2 animacao">
+                <br>
+                {% for linha in context['dados'] %}
+                {% if linha.especial == 0 %}
+                    {% if linha.qntdestoque <= 0 %}
+             
+                    <div class="shadow rounded mt-2 me-2 zoombtn" style="width: 350px; background-color: #dbdbdb;">
+                        <h3 class="text-center">Fora de Estoque</h3>
+                    {% else %}
+                    <div class="col-2 col-md-2 shadow rounded mt-2 me-2 zoombtn" style="width: 350px; background-color: #FFFDFD;">
+                    {% endif %}
+                        <a class="text-decoration-none text-dark" href="{{url_for('DetalhesItemPage',id=linha.id)}}">
+                            {% if linha.foto == None %}{% else %}
+                                <img src="/static/img/fotos/{{linha.foto}}" style="display: flex; justify-content: center; align-items: center; overflow: hidden; flex-shrink: 0;height: 240px;" class="card-img-top mt-2 rounded" alt="{{linha.foto}}">
+                            {% endif %}
+                            <div class="row mt-4">
+                                <h5 class="text-center">{{linha.titulo}}</h5>
+                                <h3 class="ms-2">R$ {{linha.preco}} <span class="" style="font-size: 12px;"> á vista </span></h3>
+                                <p class="text-light "> <span class="badge" style="background-color: #C78752;"> 
+                                    
+                                    {% if linha.qntd_vendidas != 0 %}
+                                    {{ (linha.avaliacao / linha.qntd_vendidas) | round(1) }}
+                                {% else %} 
+                                    {{ (linha.avaliacao / (linha.qntd_vendidas + 1)) | round(1) }}
+                                {% endif %}
+                                
+
+                                </span> Estrelas </p>
+                                <div class="text-center">
+                                    <a class="btn p-3" href="{{url_for('DetalhesItemPage',id=linha.id)}}" >Acessar Item</a>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                        
+                    {% if (linha.id / 4) == 1 or (linha.id / 32) == 1 %}
+                    <div class="row">
+                        <img src="../static/img/Advertisiment.png"  class="card-img-top mt-2 rounded" alt="{{linha.foto}}" style="border-image: round;">
+                    </div>
+                    {% endif %}
+                    
+                {% endif %}
+                {% endfor %}  
+            </div>
+  
+            </div>
+        </div>
+    </div>
+</div>
+{% include 'naverodapé.html' %}
+{% endblock %}

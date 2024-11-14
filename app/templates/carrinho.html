@@ -1,0 +1,103 @@
+
+{% extends 'base.html' %}
+
+    {% block BlockTitulo %}
+
+    Carrinho - Café Celestia
+
+    {% endblock %}
+
+{% include 'nave.html' %}
+
+    {% block BlockConteudo %}
+
+    <div class="container">
+
+        <div class=" mt-5 col-6">
+            <a class="btn" style="background-color: #DEBD90;" href="{{url_for('HomePage')}}">Perfil</a>
+            <a class="btn" style="background-color: #DEBD90;" href="{{url_for('ItensCompradosPage')}}">Compras Feitas</a>
+        </div>
+
+        <h1 class="text-center mt-4" style="font-size:60px;"  >CARRINHO</h1>
+        <p class=" text-center">de compras</p>
+
+        {% if checacart == None %}
+            <div class="row">
+                <div class="col"></div>
+                <div class="col">
+                    <div class="row">
+                        <img class="img-fluid flutuar" style="margin-top: -50px;" src="../static/img/cafetriste.webp">
+                        
+                    </div>
+                    <div class="row text-center margin-top:-150px;">
+                        <h3>Ops....</h3><p>Você não tem nada no carrinho...</p>
+                        <a class="btn p-4 " style="font-size: x-large;background-color: #C78752; color:#e6e6e6;" href="{{url_for('MenuPage')}}"> Por que não ver o menu?</a>
+                    </div>
+                </div>
+                <div class="col"></div>
+            </div>
+            <div class="row mt-5"></div>
+        {% endif %}
+
+            {% for linha in context['dados'] %}
+            {% if linha.id_usuario ==  useratual.id %}
+            {% for linha2 in context2['dados2'] %}
+            {% if linha.id_itens == linha2.id %}
+
+            <div class="row mt-4 p-5">
+                <div class="col">
+                    <a  href="{{url_for('DetalhesItemPage',id=linha2.id)}}">
+                        <img src="/static/img/fotos/{{linha2.foto}}" style="display: flex; justify-content: center; align-items: center; overflow: hidden;flex-shrink: 0; max-height: 180px;  max-width:max-content ;" class="mt-2 rounded " alt="{{linha2.foto}}">
+                    </a>
+                </div>
+
+                <div class="col mt-4">
+                    <div class="row">
+                        <h1>{{linha2.titulo_resumo() }}</h1>
+                    </div>
+                    <div class="row">
+                        <p>{{ linha2.descricao_resumo() }}</p>
+                    </div>
+                    <div class="row">
+                        <p>Preço: {{ linha2.preco}} X  {{linha.qntd_item}} = {{ linha2.preco * linha.qntd_item }} R$</p>
+                    </div>
+                    
+                </div>
+
+                <div class="col mt-4">
+                    <div class="row">
+                        <p style="background-color: #e6e6e6;" class="btn text-dark">Quantidade Escolhida: {{linha.qntd_item}}</p>
+                        
+                        {% if pega_cartao != None %}
+                        
+                        <a class="btn btn-success p-3" href="{{url_for('ConfirmaCompraPage', id=(linha2.id),custo=(linha2.preco*linha.qntd_item), quantidade=(linha.qntd_item), idcarrinho=(linha.id))}}"> Comprar por TOTAL: {{ linha2.preco * linha.qntd_item }} R$</a>
+                        {%else%} 
+                        <a href="{{url_for('CartaoPage')}}" class="btn btn-secondary p-5">É Preciso cadastrar um cartão para comprar</a>
+                        {% endif %}
+                    </div>
+
+                    <div class=" row mt-4">
+                        <div class="text-end">
+
+                            <a class="btn btn-danger" href="{{url_for('DelCartItem', id = linha.id)}}"> Apagar Item</a>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="mt-4">
+
+            </div>
+        </a>
+
+            {% endif %}
+            {% endfor %}
+        {% endif %}
+        {% endfor %}
+
+        
+    </div>
+
+    {% include 'naverodapé.html' %}
+
+    {% endblock %}
+    

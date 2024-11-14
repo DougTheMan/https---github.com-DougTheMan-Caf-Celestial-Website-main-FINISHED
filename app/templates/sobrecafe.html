@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+    {% block BlockTitulo %}
+
+    Produtos - Café Celestia
+
+    {% endblock %}
+
+    {% include 'nave.html' %}
+
+    {% block BlockConteudo %}
+
+    <div style="background-color: #FFFDFD;">
+        
+        <div class="container rounded mt-2 p-2" style="background-color: #0B3C49; color:#FFFDFD">
+            Conheça nossos criadores:
+            <div class="row text-center">
+                <div class="col rounded mt-2 p-2" style="background-color: #0B3C49; color:#FFFDFD">
+                   <h6> Mateus Gorges: </h6>
+                    <img src="/static/img/mateus.png" alt="Girl in a jacket" width="300" height="300">
+                </div>
+                <div class="col rounded mt-2 p-2" style="background-color: #0B3C49; color:#FFFDFD">
+                   <h6> Rick Antunes: </h6>
+                    <img src="/static/img/rick.png" alt="Girl in a jacket" width="300" height="300">
+                </div>
+        
+                <div class="col rounded mt-2 p-2" style="background-color: #0B3C49; color:#FFFDFD">
+                   <h6> Eduardo Kanzler: </h6>
+                    <img src="/static/img/edudu.png" alt="Girl in a jacket" width="300" height="300">
+                </div>
+                <div class="col rounded mt-2 p-2" style="background-color: #0B3C49; color:#FFFDFD">
+                    <h6> E agora nosso CEO : </h6>
+                    <img src="/static/img/enzo.png" alt="Girl in a jacket" width="300" height="300">
+                    <h6> Eu comandei esses primatas </h6>
+                </div>
+                <div class="col rounded mt-2 p-2" style="background-color: #0B3C49; color:#FFFDFD">
+                    <h6> Este projeto foi feito sob a orientação do chaves maromba: </h6>
+                    <img src="/static/img/chaves jorlan.png" alt="Girl in a jacket" width="300" height="300">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'naverodapé.html' %} 
+    
+    {% endblock %}

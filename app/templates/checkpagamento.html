@@ -1,0 +1,77 @@
+
+{% extends 'base.html' %}
+
+    {% block BlockTitulo %}
+
+    Pagamento Cadastrado
+
+    {% endblock %}
+
+{% include 'nave.html' %}
+
+    {% block BlockConteudo %}
+
+    <div class="container">
+
+        <div class="row ms-1 mt-4">
+            <div class="col-2  g-2 ">
+            <a href="{{url_for('ConfigUser')}}" >
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXf9HtPE6167sho0x2yuvGPsQiKaci52ecemi7F3HRZ2-DLubtXzMkKbo7Vmn61NOvHZ8&usqp=CAU" class="girar" alt="Engrenagem" style="width:60px;height:60px; margin-top: 5px;">
+            </a>
+                <p class="mt-2 p-2">Configurações de Usuário</p>
+            </div>
+            <div class=" mt-4 col">
+                <a class="btn" style="background-color: #DEBD90;" href="{{url_for('HomePage')}}">Voltar</a>
+
+            </div>
+
+
+            
+        </div>
+
+        {% if obj != None %}
+
+        <h1 class="mt-4 text-center" style="font-size:60px;">Seu Pagamento</h1>
+
+        <hr>
+
+        
+
+        <div class="row">
+
+        
+            <img class="img-fluid text-center animacao3d" style="height: fit-content; max-height: 300px;" src="/static/img/Group 18.svg">
+            <h2 class="text-center animacaotextesquerda" style="">{{obj.nome_titular}}</h2>
+
+            <div class="row text-center">
+                <p class="text-center mt-2">informações cadastradas:</p>
+                <h4 class="p-2">Titular do Cartão: {{obj.nome_titular}}</h4>
+                <hr>
+                <div class="row">
+                    <h5 class="p-2">Número: {{obj.num_cartao}}</h5>
+                    <p>Outras informações estão sob sigilo.</p>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <hr>
+
+                <a class="btn p-3 mt-5 bg-danger" style="color: #FFFDFD;" href="{{url_for('DelPag')}}">Deletar Pagamento</a>
+                <p class="text-end">Atenção, ao deletar você não pode recuperar os dados.</p>
+
+            </div>
+        
+
+            {% else %}
+
+            {% endif %}
+
+        </div>
+        
+    </div>
+
+    {% include 'naverodapé.html' %}
+
+    {% endblock %}
+    

@@ -1,0 +1,47 @@
+
+{% extends 'base.html' %}
+
+    {% block BlockTitulo %}
+
+    Error 404
+
+    {% endblock %}
+
+
+{% include 'naveltda.html' %}
+
+
+
+    {% block BlockConteudo %}
+
+    <div class="container">
+
+        <div class="row mt-5">
+
+            <div class="col-6 col-md-6">
+                <h1 class="text-break" style="font-weight: bolder;font-size: 300px; color:#C78752 ;">404</h1>
+            </div>
+            <div class="col-6 col-md-6" style="padding-top: 200px;">
+                <h1>Página Não encontrada...</h1>
+                <p>Essa página que você tentou acessar não existe mais... ou nunca existiu!
+                    <br>
+                    tem certeza que era para estar aqui?</p>
+                    <div class="row" style="justify-content: end; padding-right: 100px;" >
+                        <a class="btn p-3 mt-5 text-light" href="{{url_for('HomePage')}}" style="background-color:#C78752; width: 140px; justify-self: end;">Voltar</a>
+                    </div>
+            </div>
+            
+        </div>
+        <div class="row mt-5 p-5">
+            <h5> Por que eu estou vendo isso?</h5>
+            <p>Provavelmente o endereço do site está errado ou simplesmente não existe</p>
+            <h5 class="mt-2"> Há um erro e não consigo acessar a página que eu preciso!</h5>
+            <p>Pedimos que contate nosso email ou ligue para nós, obrigado.</p>
+        </div>
+    </div>
+    
+
+    {% include 'naverodapéltda.html'%}
+
+    {% endblock %}
+    

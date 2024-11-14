@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+
+{% block BlockTitulo %}
+Reservas - Café Celestia
+{% endblock %}
+
+{% include 'nave.html' %}
+
+{% block BlockConteudo %}
+<div class="justify-content-center" style="background-color: #FFFDFD;">
+    <div class="row mt-4">
+        <div class="me-5 text-center mt-2 p-2 rounded" style="background-color: #0B3C49;">
+            <h1 style="color: #FFFDFD;"> Reservas na cafeteria </h1>
+        </div>
+    </div>
+
+    <div class="container text-center justify-content-center rounded mt-4 p-4" style="background-color: #0B3C49;">
+        <div class="container" style="display: flex; justify-content: center;">
+            <iframe class="rounded" src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d892.807994650013!2d-49.076734119048375!3d-26.48047469489008!3m2!1i1024!2i768!4f13.1!5e0!3m2!1spt-BR!2sbr!4v1726168657966!5m2!1spt-BR!2sbr" width="800" height="500" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <h3 class="text-light mt-2 p-2 text-center"> Nós do Café Celestia!<hr> Estamos mais do que felizes em aceitar encontros de amigos, familiares ou românticos em nossa cafeteria! Você pode, Hoje mesmo, reservar uma mesa em NOSSA cafeteria. </h3>
+        <hr class="text-light">
+    </div>
+
+</div>
+
+<h1 class="mt-4 p-2" style="text-align: center; background-color: #debd90;">Faça sua reserva</h1>
+<div class="controls" style="text-align: center;">
+    <button id="prevMonth" class="shadow">Mês Anterior</button>
+    <span id="monthYear" style="margin: 0 15px; font-size: 20px"></span>
+    <button id="nextMonth" class="shadow">Próximo Mês</button>
+</div>
+<div>
+    <table class="calendar shadow">
+        <thead>
+            <tr>
+                <th>Dom</th>
+                <th>Seg</th>
+                <th>Ter</th>
+                <th>Qua</th>
+                <th>Qui</th>
+                <th>Sex</th>
+                <th>Sáb</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <script>
+        const reservas = {{ reservas | tojson }};  // Recebe as reservas do backend
+
+        let currentYear = new Date().getFullYear();
+        let currentMonth = new Date().getMonth();
+
+        function generateCalendar(year, month) {
+            const tableBody = document.querySelector('.calendar tbody');
+            tableBody.innerHTML = '';
+
+            const firstDay = new Date(year, month, 1).getDay();
+            const lastDate = new Date(year, month + 1, 0).getDate();
+
+            let row = document.createElement('tr');
+            for (let i = 0; i < firstDay; i++) {
+                row.appendChild(document.createElement('td'));
+            }
+
+            for (let date = 1; date <= lastDate; date++) {
+                const cell = document.createElement('td');
+                const fullDate = `${year}-${String(month + 1).padStart(2, '0')}-${String(date).padStart(2, '0')}`;
+
+                // Verifica se a data está reservada
+                if (reservas[fullDate]) {
+                    cell.classList.add('day', 'reserved');  // Dia reservado
+                    cell.textContent = date;
+                } else {
+                    cell.classList.add('day');
+                    cell.textContent = date;
+                }
+                row.appendChild(cell);
+
+                if ((date + firstDay) % 7 === 0) {
+                    tableBody.appendChild(row);
+                    row = document.createElement('tr');
+                }
+            }
+
+            while (row.children.length < 7) {
+                row.appendChild(document.createElement('td'));
+            }
+            tableBody.appendChild(row);
+
+            updateMonthYearDisplay(); // Atualiza a exibição do mês e ano
+        }
+
+        function updateMonthYearDisplay() {
+            const monthNames = [
+                'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+                'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+            ];
+            document.getElementById('monthYear').textContent = `${monthNames[currentMonth]} ${currentYear}`;
+        }
+
+        function showPreviousMonth() {
+            if (currentMonth === 0) {
+                currentMonth = 11;
+                currentYear--;
+            } else {
+                currentMonth--;
+            }
+            generateCalendar(currentYear, currentMonth);
+        }
+
+        function showNextMonth() {
+            if (currentMonth === 11) {
+                currentMonth = 0;
+                currentYear++;
+            } else {
+                currentMonth++;
+            }
+            generateCalendar(currentYear, currentMonth);
+        }
+
+        document.getElementById('prevMonth').addEventListener('click', function() {
+            showPreviousMonth();
+            updateMonthYearDisplay(); // Atualiza a exibição após mudar o mês
+        });
+
+        document.getElementById('nextMonth').addEventListener('click', function() {
+            showNextMonth();
+            updateMonthYearDisplay(); // Atualiza a exibição após mudar o mês
+        });
+
+        // Add click event to redirect to reservation
+        document.querySelector('.calendar').addEventListener('click', function(event) {
+            if (event.target.classList.contains('day') && !event.target.classList.contains('reserved')) {
+                const clickedDate = event.target.textContent;
+                const fullDate = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(clickedDate).padStart(2, '0')}`;
+                window.location.href = `/reservar/${fullDate}`;
+            }
+        });
+
+        // Generate calendar for the current month on page load
+        generateCalendar(currentYear, currentMonth);
+    </script>
+
+<h1 class="mt-4" style="text-align: center; background-color: #0B3C49; color: white;">Suas Reservas</h1>
+<div class="container" style="background-color: #debd90; border-radius: 5px;">
+    {% if reservas_usuario %}
+    <div class="text-center mt-2">   
+    <ul>
+            {% for linha in context['dados'] %}
+            {% if linha.user_id ==  useratual.id %}
+                <li>Data: {{ linha.data }}</li>  
+                {% endif %}
+                {% endfor %}
+            
+        </ul>
+    </div> 
+    {% else %}
+        <p>Você não tem reservas.</p>
+    {% endif %}
+</div>
+
+
+{% include 'naverodapé.html' %}
+{% endblock %}

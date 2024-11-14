@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+    {% block BlockTitulo %}
+
+    Produtos - Café Celestia
+
+    {% endblock %}
+
+    {% include 'nave.html' %}
+
+    {% block BlockConteudo %}
+
+
+
+    <div style="background-color: #FFFDFD;">
+        
+        <div class="row">
+
+
+            <div class="col">
+
+                <br class="mt-2 p-2">
+                <br class="mt-2 p-2">
+
+                <div class="row text-center me-5 ms-5">
+
+                        <form action="{{ url_for('MenuPesquisaPage') }}" method="POST">
+                            <input class="fs-5" type="text" id="buscabarra" name="pesquisa" placeholder="Buscar">
+                            <input type="submit" id="btnpesquisa" value="{{id}}">
+                        </form>
+
+                </div> 
+
+                <h1 class="text-center mt-4 ">Resultados da Pesquisa</h1>
+
+                {% if linha in context.dados ==  None %}
+                    
+                {% endif %}
+                
+                <div class="container">
+                    <div class="row justify-content-center mt-2 p-2 animacao">
+                        <br>
+                {% for linha in context['dados'] %}
+                        
+                    {% if linha.qntdestoque <= 0 %}
+             
+                    <div class="shadow rounded mt-2 me-2 zoombtn" style="width: 350px; background-color: #dbdbdb;">
+                        <h3 class="text-center">Fora de Estoque</h3>
+                    {% else %}
+                    <div class="col-2 col-md-2 shadow rounded mt-2 me-2 zoombtn" style=" background-color: #FFFDFD;">
+                    {% endif %}
+                        <a class="text-decoration-none text-dark" href="{{url_for('DetalhesItemPage',id=linha.id)}}">
+                            {% if linha.foto == None %}{% else %}
+                                <img src="/static/img/fotos/{{linha.foto}}" style="display: flex; justify-content: center; align-items: center; overflow: hidden; flex-shrink: 0;height:100px; width: max-content;" class="card-img-top mt-2 rounded" alt="{{linha.foto}}">
+                            {% endif %}
+                            <div class="row mt-4">
+                                <h5 class="text-center">{{linha.titulo}}</h5>
+                                <h3 class="ms-2">R$ {{linha.preco}} <span class="" style="font-size: 12px;"> á vista </span></h3>
+                                <p class=""> <span class="badge text-center" style="background-color: #C78752;"> 
+                                    
+                                    {% if linha.qntd_vendidas != 0 %}
+                                    {{ (linha.avaliacao / linha.qntd_vendidas) | round(1) }}
+                                    {% else %} 
+                                    {{ (linha.avaliacao / (linha.qntd_vendidas + 1)) | round(1) }}
+                                    {% endif %}
+                                
+
+                                </span> Estrelas </p>
+                                <div class="text-center">
+                                    <a class="btn p-3" href="{{url_for('DetalhesItemPage',id=linha.id)}}" >Acessar Item</a>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                        
+                    {% if (linha.id / 4) == 1 or (linha.id / 32) == 1 %}
+                    <div class="row">
+                        <img src="../static/img/Advertisiment.png"  class="card-img-top mt-2 rounded" alt="{{linha.foto}}">
+                    </div>
+                    {% endif %}
+                    
+
+                {% endfor %}  
+                    </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'naverodapé.html' %}
+    
+    {% endblock %}

@@ -1,0 +1,35 @@
+    Olá, provavelmente será você quem estará lendo, Sargento Skibidi Rick.
+
+    Então antes de começar tudo a rodar o site e blá blá blá
+    --- Veja se tem esses Requisitos ---
+
+        1. Python 3.12.4 ( https://www.python.org/downloads/ )
+
+        2. Cole esse comando no terminal cmd: winget install --id Git.Git -e --source winget 
+
+        2.2 Link Repositório https://github.com/DougTheMan/Caf-Celestial-Website.git
+        // meio que preciso do seu nome para adicionar no github permissões
+
+        -- Sempre lembrar de atualizar quando modificado --
+            - não tem como dar commit sem comentario -
+
+        3. Extensões: Python, SQLite Viewer
+
+        3. Pip Installs Correto
+            ou pip install -r requirements.txt
+        4. E Fonte Monocraft
+
+	5. Por algum motivo tem que deletar o venv e recriar o sqlaclhemy pip para criar nova tabela
+
+
+    --- E Aqui embaixo iremos botar oque precisa ser feito em ordem para o site se levantar ---
+
+    Começando agora Precisamo:
+
+        0. Lançar Arquivos no GitHub
+    X    1. Configurar o Main
+        2. Fazer páginas principais
+        3. Linkar páginas
+        4. Banco de dados
+        
+        5. Melhorar umas coisas no figma

@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+
+    {% block BlockTitulo %}
+
+    Produtos - Café Celestia
+
+    {% endblock %}
+
+    {% include 'nave.html' %}
+
+    {% block BlockConteudo %}
+
+    <div style="background-color: #FFFDFD;">
+      <div style="height: 3px;"></div>
+      <div class="container rounded-bottom " style="background-color: #0B3C49; color:#FFFDFD;">
+        <div style=" background-position: top ;background-size: cover ; background-image: url({{url_for('static',filename='img/image3.png')}});">
+          <div class="row p-2"></div>
+          <h1 class=" ms-3"> Configurações de Conta</h1>
+          <p class="ms-5 p-2">Aqui você pode mexer na sua conta</p>
+        </div>
+      </div>
+
+      <div class="container rounded" style="background-color: #0B3C49; color:#FFFDFD">
+        <div class="row">
+
+            <div class="col-md">
+              <h5 class="mt-2 p-2">Configurações de Identificação</h5>
+                <div class="p-4">
+
+                  <div class="row ">
+                    <a href="{{url_for('trocapelido')}}" class="btn " style="background-color: #FFFDFD; color: #0B3C49;">Mudar Apelido</a>
+                  </div>
+                  <div class="row mt-4">
+                    <a href="{{url_for('trocaemail')}}" class="btn " style="background-color: #FFFDFD; color: #0B3C49">Mudar EMail</a>
+                  </div>
+                  <div class="row mt-4">
+                    <a href="{{url_for('trocasenha')}}" class="btn" style="background-color: #FFFDFD; color: #0B3C49;">Mudar Senha</a>
+                  </div>
+                
+                </div>
+
+              </div>
+
+              <div style="width: 1px; border-left: 1px solid; color: rgb(255, 253, 253,0.5);"></div>
+
+          <div class="col-md">
+            
+            <h5 class="mt-2 p-2">Configurações de Compras</h5>
+            <div class="p-4">
+
+
+
+              <div class="row ">
+                {% if pega_endereco != None %}
+
+                <a class="btn" style="background-color: #C78752; color: #FFFDFD;" href="{{url_for('CheckEnd', id_endereco=pega_endereco.id)}}">Checar Endereço</a>
+                  <p>Em dúvida, sempre cheque qual é o endereço cadastrado.</p>
+
+              
+                {% else %}
+                <a class="btn bg-primary" style="background-color: #C78752; color: #FFFDFD;" href="{{url_for('CepPage')}}">Cadastrar Endereço?</a>
+                  <p>Você pode Cadastrar um endereço para receber suas compras</p>
+                
+                  {% endif %}
+                </div>  
+
+              <div class="row">
+                {% if pega_cartao != None %}
+
+                <a class="btn" style="background-color: #C78752; color: #FFFDFD;" href="{{url_for('CheckPag', id_cartao=pega_cartao.id)}}">Checar Pagamento</a>
+                <p>Cheque o pagamento que está cadastrado.</p>
+
+                {% else %}
+
+                  <a class="btn bg-primary" style="background-color: #C78752; color: #FFFDFD;" href="{{url_for('CartaoPage')}}">Cadastrar Pagamento?</a>
+                  <p>Para pagar pelas compras você precisa cadastrar um cartão!</p>
+                  
+                  {% endif %}
+                </div>
+
+
+          </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="container rounded" style="background-color: #0B3C49; color:#FFFDFD; background-position: bottom ;background-size: cover ; background-image: url({{url_for('static',filename='img/image3.png')}});">
+      
+
+          <h5 class=" mt-3 p-3">Cancelamento de Conta</h5> 
+          <!-- Button trigger modal -->
+        <button type="button" class="btn btn-danger mt-2 ms-3" data-bs-toggle="modal" data-bs-target="#delconta">DELETAR CONTA</button>
+        
+        <div class="row p-4"></div>
+        
+        <!-- Modal -->
+        <div class="modal fade" id="delconta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5 text-dark" id="exampleModalLabel">Tem certeza que deseja deletar sua conta?</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+            <div class="modal-body text-dark">
+              Este é um caminho sem volta, caso queira prosseguir clique no botão abaixo para deletar sua conta.
+            </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar (Não Deleta)</button>
+                <div>
+
+                  <a type="button" class="btn btn-danger" href="{{url_for('DelUser')}}">DELETAR CONTA</a>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+   
+    </div>
+
+    
+    {% include 'naverodapé.html' %}
+    
+    {% endblock %}

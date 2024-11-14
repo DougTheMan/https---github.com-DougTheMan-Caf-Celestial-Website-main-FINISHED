@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+
+{% block BlockTitulo %}
+    Fidelidade - Café Celestia
+{% endblock %}
+
+{% include 'nave.html' %}
+
+{% block BlockConteudo %}
+
+<style>
+    .background-content{
+        background-image: url('../static/img/blur.png');
+}
+
+    
+    nav {
+        z-index: 1000; 
+        position: relative;
+    }
+
+#prsbut{
+    background-color: #c78752;
+}
+    button:hover{
+        transform: scaleX(+1.05);
+    }
+
+.background-content{
+    background-image: url("../static/img/fundo.png");
+    background-repeat: repeat;
+}
+</style>
+<div class="background-content">
+
+<div class="leftdraw"></div>
+<div class="rightdraw"></div>
+
+<div class="content mt-4">
+    <div class="container">
+        <div class="row mt-1 rounded p-4" style="background-color: rgb(11, 60, 73, 0.842); color: white;">
+            <div class="col text-center">
+                <img class="" src="/static/img/cobson-soyjak.gif" height="100px">
+            </div>
+            <div class="col text-center">
+                <h1 class=" mt-4" style="color:#ffac2f">{{ useratual.celestianus }}</h1>
+                <h5 class=" mt-2">Celestianus</h5>
+            </div>
+        </div>
+
+        <br>
+        <div class="row mt-1 rounded p-4" style="background-color:  rgb(11, 60, 73, 0.842); color: white;">
+        <h3 class="mt-4">Benefícios com os Celestianus</h3>
+        <p class="p-2">Aqui você pode receber seus extras com a nossa moeda</p>
+        </div>
+        <div class="container mt-5">
+            {% for linha in context['dados'] %}
+            <hr style="  border-top: 2px dashed black;">
+            <div class="row">
+                <div class="col text-center" style="height: 200px;">
+                    <img class="rounded" style="max-height: 200px; min-height: 200px;" src="/static/img/fotos/{{ linha.foto }}">
+                </div>
+                <div class="col">
+                    <div class="row mt-1 rounded p-4" style="background-color:  rgb(11, 60, 73, 0.842); color: white;">
+                        <h3>{{ linha.nome }}</h3>
+                        <h4>{{ linha.qntd_cel }} Celestianus</h4>
+                    <div class="row mt-2">
+                        <h6>{{ linha.descricao }}</h6>
+                    </div>
+                    </div>
+                </div>
+                <div class="col ms-5 mt-4">
+                    {% if useratual.celestianus >= linha.qntd_cel %}
+                    <form action="{{ url_for('FidelidadePage') }}" method="post">
+                        <input type="hidden" name="voucher_id" value="{{ linha.id }}">
+                        <div class="row mt-1 rounded p-4" style="background-color: rgb(11, 60, 73, 0.842); color: white;">
+                        <button style="background-color: #0b3c49; " class="btn btn-primary mt-3 text-center" type="submit">
+                            Adquirir voucher
+                        </button>
+                    </div>
+                    </form>
+                    {% else %}
+                    <h4 class="bg-danger rounded">Sem celestianus suficientes</h4>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="row mt-4">
+            <h2>Resgatar na nossa loja</h2>   
+            <button class="btn text-light zoombtn" id="prsbut" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                Acessar
+            </button>
+        </div>
+
+        <div class="collapse" id="collapseExample">
+          <div class="">
+
+
+                {% for linha in context['dados'] %}
+                <hr>
+                <div class="row mt-1 rounded p-4" style="background-color: rgb(11, 60, 73, 0.842); color: white;">
+                <div class="row">
+                    <div class="col" style="justify-content: center;">
+                        <img class="rounded" height="200px" src="/static/img/fotos/{{ linha.foto }}">
+                    </div>
+                    <div class="col">
+                        {% if context['vouchers_resgatados'].get(linha.id) %}
+                        <h4 class="mt-4">Você possui {{ context['vouchers_resgatados'][linha.id] }} voucher(s) para resgate na loja</h4>
+                        {% else %}
+                        <h4 class="mt-4" >Nenhum voucher disponível para resgate</h4>
+                        {% endif %}
+                    </div>
+                </div>
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+
+        <div class="mt-4"></div>
+
+    </div>
+</div>
+</div>
+{% include 'naverodapé.html' %}
+
+{% endblock %}

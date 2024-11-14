@@ -1,0 +1,243 @@
+    
+{% extends 'base.html' %}
+
+
+    {% block BlockTitulo %}
+
+    Home - Café Celestia
+
+    {% endblock %}
+
+{% include 'nave.html' %}
+
+    {% block BlockConteudo %}  
+    
+<style>
+        
+      
+    .ease-in-out {
+        animation: grow 3s ease-in-out infinite;
+}
+    
+@keyframes grow {
+  0% {
+    font-size: 1em;
+  }
+  50% {
+    font-size: 1.2em;
+  }
+  100% {
+    font-size: 1em;
+  }
+}
+
+
+</style>
+
+    <div style="background-color: #FFFDFD;">
+        
+        <div class="container">
+    
+        <div class="container" style="background-repeat: no-repeat; background-position: right; background-position: down; background-size:auto; background-image: url({{url_for('static',filename='img/Clouds1.png')}});">
+            <br>
+            {% if current_user.is_authenticated %}
+
+            <div class="row">
+                <div class="col-2 md-2 g-2">
+                <a href="{{url_for('ConfigUser')}}" >
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXf9HtPE6167sho0x2yuvGPsQiKaci52ecemi7F3HRZ2-DLubtXzMkKbo7Vmn61NOvHZ8&usqp=CAU" class="girar" alt="Engrenagem" style="width:60px;height:60px; margin-top: 5px;">
+                </a>
+                    <p class="mt-2 p-2">Configurações de Usuário</p>
+                </div>
+                <div class=" mt-4 col">
+                    <a class="btn" style="background-color: #DEBD90;" href="{{url_for('ItensCompradosPage')}}"> Compras Feitas</a>
+                    <a class="btn" style="background-color: #DEBD90;" href="{{url_for('FidelidadePage')}}"> Vouchers Disponíveis</a>
+                </div>
+
+
+                
+            </div>
+
+            <div class="row" style="margin-top: 200px; ">
+                <h1 class = "mt-4 p-4 text-break respirar" style=" font-size: 100px; transform: translateY(-100px);"> OLÁ, {{useratual.usuario}}!</h1>
+                
+                {% if useratual.adm == 1 %}
+                <div class="container-fluid">
+                    <a class="bg-primary btn col-6 p-4 justify-content-end" href="{{url_for('CadProdPage')}}" role="button" style="color:#FFFDFD; font-size: 10px;" >Administrar</a>
+                  
+                </div>
+                {% endif %}
+
+                <div class="container-fluid text-end">
+                    <a class="bg-danger btn col-6 " href="{{url_for('LogoutPage')}}" role="button" style="color:#FFFDFD; font-size: 10px;" >DESLOGAR</a>
+                </div>
+                <br> 
+                <div class="container mt-2 p-2">
+                    <h6>"{{mensagem_escolhida}}"<br><br></h6>
+                    <p>-Do nosso CEO, Enzo Wagner.</p>
+                </div>
+
+                <br>
+
+            </div>
+            
+        
+        </div>
+
+
+
+        <hr>
+
+        <div style="background-color: #FFFDFD;">
+
+            <p>Endereço Cadastrado Para Entregas:</p>
+
+            {% if pega_endereco != None %}
+
+            <div class="row ms-2 rounded animacao" style="background-color: rgb(11, 60, 73, 0.1); padding-top: 10px; padding-bottom: 10px;">
+
+                <div class="col-md-4" style="background-image: url('/static/img/Group 17.svg'); background-repeat: no-repeat; height:200px;">
+                    <p class="text-light" style="font-weight: bold; margin-top: 140px;">Cep: {{pega_endereco.cep}}</p>
+                    
+                </div>
+                <div class="col-md" style="align-self: center;">
+                    <a class="btn mt-3 p-4 text-light" style="background-color: #3C636D;" href="{{url_for('CheckEnd', id_endereco=id_endereco)}}">Checar Endereço</a>
+
+                </div>
+
+            </div>
+            
+            {% else %}
+
+            <div class="rounded" style="background-color: rgba(247, 0, 0, 0.1); padding-top: 10px; padding-bottom: 10px;">
+                <h6 class="mt-3">Nenhum Endereço Cadastrado Registrar um abaixo</h6>
+                <a class="btn mt-2 col-2 justify-content-end" href="{{url_for('CepPage')}}" role="button" style="color:#FFFDFD; font-size: 10px; background-color: #0B3C49;" >Adicionar Endereço</a>
+            </div>
+            {% endif %}
+
+            
+            <hr>
+            <p>Cartão Cadastrado Para Compras:</p>
+
+            {% if pega_cartao != None %}
+            <div class="row ms-2 rounded animacao"  style="background-color: rgb(222, 189, 144, 0.1); padding-top: 10px; padding-bottom: 10px;">
+
+                <div class="col-md-5" style="background-image: url('/static/img/Group 18.svg'); background-repeat: no-repeat; height:200px;">
+                    <h6 class="text-light" style="font-weight: bold; margin-top: 140px;" >{{pega_cartao.nome_titular}}</h6>
+
+                </div>
+                <div class="col-md" style="align-self: center;" >
+                    <a class="btn mt-3 p-4 text-light" style="background-color: #C78752;" href="{{url_for('CheckPag', id_cartao=id_cartao)}}">Checar Cartão</a>
+
+                </div>
+            </div>
+            
+            {% else %}
+
+            <div class="rounded" style="background-color: rgba(247, 0, 0, 0.1); padding-top: 10px; padding-bottom: 10px;">
+                <h6>Nenhum Cartão Cadastrado. Registrar um abaixo</h6>
+                <a class="btn mt-2 col-2 justify-content-end" href="{{url_for('CartaoPage')}}" role="button" style="color:#FFFDFD; font-size: 10px; background-color: #0B3C49;" >Adicionar Cartão</a>
+            </div>
+
+            {% endif %}
+
+           
+        </div>
+
+        <br class="p-4 mt-4">
+
+        </div>
+
+        {% else %}
+
+
+            <br class="p-4 mt-4">
+
+            <div class="row text-center ">
+                
+                <h1 class = "mt-4 " style="color: #C78752; font-size: 30px; text-decoration: underline;">Você Está Deslogado</h1>
+                <h1 class = "" style="color: #C78752; font-size: 20px;"></h1>
+                <br> <br>
+                
+            </div>
+            
+            <div class="row text-center justify-content-center">
+                <a class="btn col-5" href="{{url_for('CadastroPage')}}" role="button" style="color: #FFFDFD; background-color: #C78752; font-size: larger;" >Cadastrar</a>
+                <a class="btn col-5" href="{{url_for('LoginPage')}}" role="button" style="color: #C78752; background-color: #dfdede; font-size: larger;" >Eu ja tenho Login</a>
+
+            </div>
+
+             
+
+            <br class="p-4 mt-4"><br class="p-4 mt-4"><br class="p-4 mt-4"><br class="p-4 mt-4">
+            <br> <br>
+            
+            <div class="row" >
+                <div class="col text-start">
+                    <h2 class="text-center"><span class="badge badge-secondary" style="background-color: #0B3C49;">Para que fazer uma conta?</span></h2>
+                    <div style="background-color: #0B3C49; color: white; border-radius: 7px; padding-bottom: 1%; padding-top: 1%;">
+                        <div class="ease-in-out text-center">Você ganha vários benefícios como:</div>   
+                    </div>
+                 </div>
+                 <br><br><br><br>
+                    <br class="mt-4 p-4">
+                    <p><span class="badge badge-secondary" style="background-color: #0B3C49;">▶ Fazer Compras;</p>
+                    <p><span class="badge badge-secondary" style="background-color: #0B3C49;">▶ Ganhar Pontos de Compras;</p>
+                    <p><span class="badge badge-secondary" style="background-color: #0B3C49;">▶ Escrever Comentários e Reviews;</p>
+                    <p><span class="badge badge-secondary" style="background-color: #0B3C49;">▶ Gerenciar Reservas na nossa cafeteria;</p>
+                    <p><span class="badge badge-secondary" style="background-color: #0B3C49;">▶ Receber em Email Vouchers para Shows;</p>
+                    <p><span class="badge badge-secondary" style="background-color: #0B3C49;">▶ Receber Emails de descontos e Promoções de seu interesse.</p>
+                        
+                </div>
+            </div>
+
+            
+            <div class="row rounded" style="background-repeat: no-repeat; background-position: center; background-position: down; background-size: auto; background-image: url({{url_for('static',filename='img/Group 15.png')}}); ">
+                <br class="p-4 mt-4"><br class="p-4 mt-4"><br class="p-4 mt-4"><br class="p-4 mt-4"><br class="p-4 mt-4"><br class="p-4 mt-4"><br class="p-4 mt-4"><br class="p-4 mt-4"><br class="p-4 mt-4"><br class="p-4 mt-4"><br class="p-4 mt-4"><br class="p-4 mt-4">
+                <br class="p-4 mt-4"><br class="p-4 mt-4"><br class="p-4 mt-4"><br class="p-4 mt-4"><br class="p-4 mt-4"><br class="p-4 mt-4"><br class="p-4 mt-4"><br class="p-4 mt-4"><br class="p-4 mt-4"><br class="p-4 mt-4"><br class="p-4 mt-4"><br class="p-4 mt-4">
+            </div>
+
+
+                <div class="col text-end rounded">
+                    <br class="mt-4 p-4">
+
+                    <h2 class="text-center"><span class="badge badge-secondary" style="background-color: #0B3C49;">Perguntas Frequentes</span></h2>
+                    
+                    <div class="rounded mt-2 p-1 text-center" style="position: auto; border: 1px solid black; padding-left: 0px; padding-right: 0px;"> 
+                        <p class="" ><span class="badge badge-secondary" style="background-color: #0B3C49; ">Pergunta |</span> Como receberei meus pedidos de compras?</p>
+                        <p class="btn " style="background-color: #FFFDFD;color:#0B3C49;"> <span class="badge badge-secondary" style="background-color: #0B3C49;">Resposta |</span> Será tudo pelo seu email cadastrado, então tenha certeza de ter escrito ele corretamente!</p>
+                    </div>
+                    <div class="rounded mt-2 p-1 text-center"  style="position: auto; border: 1px solid black; padding-left: 0px; padding-right: 0px;">
+                        <p><span class="badge badge-secondary" style="background-color: #0B3C49;">Pergunta |</span> Eu posso cadastrar e apagar os meus cartões de pagamento?</p>
+                        <p class="btn " style="background-color: #FFFDFD;color:#0B3C49;"><span class="badge badge-secondary" style="background-color: #0B3C49;">Resposta |</span> Sim você Pode!</p>
+                    </div>
+                    <div class="rounded mt-2 p-1 text-center "  style="position: auto; border: 1px solid black; padding-left: 0px; padding-right: 0px;">
+                        <p><span class="badge badge-secondary" style="background-color: #0B3C49;">Pergunta |</span> Quero deletar meu login, posso?</p>
+                        <p class="btn " style="background-color: #FFFDFD;color:#0B3C49;"><span class="badge badge-secondary" style="background-color: #0B3C49;">Resposta |</span> Concerteza! Fica a seu gosto, aqui nessa página depois do login se encontra "Configurações de Usuário", em uma engrenagem.</p>
+                    </div>
+                    <div class="rounded mt-2 p-1 text-center "  style="position: auto; border: 1px solid black; padding-left: 0px; padding-right: 0px;">
+                        <p><span class="badge badge-secondary" style="background-color: #0B3C49;">Pergunta |</span> É Seguro? Como posso ter certeza??</p>
+                        <p class="btn " style="background-color: #FFFDFD; color:#0B3C49;"><span class="badge badge-secondary" style="background-color: #0B3C49;">Resposta |</span> Nós somos uma empresa real e em uma localização real. Se tiver tempo, pofavor venha nos visitar! ou clique no "Sobre nós" no rodapé abaixo</p>
+                    </div>
+                    <br>
+                </div>
+
+        
+
+        {% endif %}
+
+    
+
+    </div>
+
+</div>
+
+    
+
+    
+
+    {% include 'naverodapé.html' %}
+    {% endblock %}
+
+
+

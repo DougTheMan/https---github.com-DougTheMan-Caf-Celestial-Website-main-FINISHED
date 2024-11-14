@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+    {% block BlockTitulo %}
+
+    Produtos - Café Celestia
+
+    {% endblock %}
+
+    {% include 'nave.html' %}
+
+    {% block BlockConteudo %}
+
+
+        <div class="container ">  
+
+            <div class="row">
+            
+                <div class="col">
+                    <h4 class="mt-4">O Seu nome por agora é: <br>"{{useratual.usuario}}" </h4>
+                    <p class="ms-2 ">deseja trocar-lo?</p>
+                </div>
+                <div class="col-3 mt-4 p-4 text-end">
+                    <a href="{{url_for('ConfigUser')}}" style="background-color: #0B3C49;" type="submit" class="btn btn-primary">Voltar</a>
+                </div>
+
+            </div>
+
+            <div class="row mt-2">
+                <div class="rounded" style="background-position: center ;background-image: url({{url_for('static',filename='img/Group 15.png')}});">
+                <br class="mt-4 p-4">
+                </div>
+                
+                <form class="ms-2 mt-4 " method="POST">
+                    <div class="form-group">
+                        <label class="fs-4" for="">Novo Apelido:</label>
+                        <input 
+                            type="text" 
+                            class="form-control fs-5" 
+                            id="new_apelido" 
+                            name="new_apelido" 
+                        >
+                    </div>
+                    <br>
+                    <button style="background-position: center ;background-image: url({{url_for('static',filename='img/Group 15.png')}});"  type="submit" class="btn btn-primary text-dark fs-5">Atualizar Apelido</button>
+                </form>
+            </div>
+
+        </div>
+
+
+        
+    {% include 'naverodapé.html' %}
+    
+    {% endblock %}

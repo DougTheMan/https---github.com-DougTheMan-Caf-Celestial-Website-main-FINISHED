@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block BlockTitulo %}
+    Produtos - Café Celestia
+{% endblock %}
+
+{% include 'nave.html' %}
+
+{% block BlockConteudo %}
+<style>
+    .form-check {
+        margin-bottom: 0;
+    }
+    .form-check-input {
+        margin-top: 0; 
+        margin-bottom: 0; 
+        transform: scale(1); 
+    }
+    .form-check-label {
+        margin-bottom: 0;
+    }
+    .d-flex {
+        display: flex; 
+    }
+    .align-items-center {
+        align-items: center; 
+    }
+    .me-2 {
+        margin-right: 0.5rem;
+    }
+</style>
+<div style="background-color: #FFFDFD;">
+    <div class="container mt-1 p-2 rounded text-light" style="background-color: #0B3C49;">
+        <div class="row text-center">
+            <h1>Confirmando compra</h1>
+            <div class="col">
+                <h1 class="mt-4"> Comprando: {{obj.titulo}}</h1>
+                <p class="mt-1">{{obj.descricao_resumo()}}</p>
+                {% if naopodecomprar != 1 %}
+                    <h2> Quantidade: {{q}} </h2>
+                {% else %}
+                    <h2 class="bg-danger"> Quantidade: {{q}} </h2>
+                {% endif %}
+                <hr>
+                <h3 class="mt-4"> Preço: {{c}} R$</h3>
+                
+                {% if naopodecomprar != 1 %}
+                <form method="POST">
+                    {{ form.csrf_token() }}
+                    
+                    {% if pega_cartao == None %}
+                        <p class="btn p-5 bg-secondary">Impossível comprar.<br> Nenhum cartão cadastrado</p>
+                    
+                    {% else %}
+
+                        <h4 class="mt-4">OPÇÕES DE ENTREGA</h2>
+
+                        {% if pega_endereco == None %}
+
+                        <div class=" text-center ms-2">
+
+                            {{form.id_endereco(class="form-control")}}
+                            <p>Nenhum endereço informado.</p>
+                            
+                        </div>
+
+                        </div>
+                        {% else %}
+                        <div class="row text-center ms-2">
+
+                            {{form.id_endereco(class="form-control")}}
+                            <p>Receber em: {{pega_endereco.logradouro}} {{pega_endereco.numero}}, CEP: {{pega_endereco.cep}}.</p>
+                        </div>
+
+                        {% endif %}
+                        
+                        {{ form.btnSubmit(class="btn bg-success  p-4") }} 
+                        <p>Cartão Para compra:<br>{{pega_cartao.num_cartao}}</p>
+                    {% endif %}
+                </form>
+                {% else %}  
+                    <p class="btn p-5 bg-danger text-light">Impossível comprar.<br> a quantidade excedeu o estoque,<br> por favor delete esse item e escolha nova quantidade.</p>
+                {% endif %}
+            </div>
+            <div class="col">
+                <img class="rounded img-fluid" src="/static/img/fotos/{{obj.foto}}">
+                <h3>Foto</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'naverodapé.html' %}
+{% endblock %}

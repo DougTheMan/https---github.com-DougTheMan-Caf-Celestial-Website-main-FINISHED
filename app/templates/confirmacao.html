@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block BlockTitulo %}
+Confirmação de Reserva
+{% endblock %}
+
+{% include 'nave.html' %}
+
+{% block BlockConteudo %}
+<div class="container">
+    <h1>Foi reservada sua vaga para o dia {{ data }}!</h1>
+    <a href="{{ url_for('reservas') }}" class="btn btn-primary">Voltar para Reservas</a>
+</div>
+{% include 'naverodapé.html' %}
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+    {% block BlockTitulo %}
+
+    Produtos - Café Celestia
+
+    {% endblock %}
+
+    {% include 'nave.html' %}
+
+    {% block BlockConteudo %}
+
+    <div style="background-color: #FFFDFD;">
+
+        <div class="container mt-1 " style="background-color: #DEBD90;">
+            <br>
+                <div class="row mt-4 me-5 ms-5 rounded">
+
+                    <div style="background-repeat: no-repeat; background-size: cover; background-image: url({{url_for('static',filename='img/Group 15.png')}}); ">
+
+                        <div class="col-3 rounded-start text-center" >
+                            
+                            <br class="mt-4 p-4"><br class="mt-4 p-4"><br class="mt-4 p-4"><br class="mt-4 p-4">
+                        
+                        </div>
+
+                        <div class="col-4">
+                            <br class="mt-4 p-4">
+                        </div>
+
+                    </div>
+                    <div class="col rounded " style="background-color: #C78752;" >
+                        <div class=" row p-2 rounded text-light" style="background-color: #C78752;">
+                            <h1 class=" mt-3 text-center ">Cadastro de Cartão</h1>
+                            <p class="text-center">Faça seu pedido rapidinho após registrar o cartão</p>
+                            <hr>
+                        </div>
+                        <form action="" method="POST" class="row  p-2 " >
+                            {{form.csrf_token()}}
+
+                            {{form.nome_titular.label(class="fs-5")}}
+                            {{form.nome_titular(class="form-control")}}
+
+                            {{form.num_cartao.label(class="fs-5")}}
+                            {{form.num_cartao(class="form-control")}}
+
+                            {{form.data_vencimento.label(class="fs-5")}}
+                            {{form.data_vencimento(class="form-control")}}
+
+                            {{form.cvv.label(class="fs-5")}}
+                            {{form.cvv(class="form-control")}}
+
+
+                            {{form.btnSubmit(class="btn form-control p-4 mt-3 fs-4", style="background-color: #DEBD90;", id="skibidi")}} 
+                        </form>
+                       <!-- {% if form.validate_on_submit() %}
+                        <script>
+                            const button = document.getElementById('skibidi');
+                            button.addEventListener('click', function() {
+                            alert('Endereço registrado com sucesso');
+                            });
+                        </script>
+                        {% endif %}-->
+        
+                    </div>
+                </div>
+                <br class="mt-4 p-4"><br class="mt-4 p-4">
+        </div>
+    </div>
+
+    
+    </div>
+                            
+
+
+
+{% include 'naverodapé.html' %}
+    
+    {% endblock %}

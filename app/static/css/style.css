@@ -1,0 +1,33 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+table.calendar {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table.calendar th,
+table.calendar td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    width: 14.28%; /* Para 7 colunas */
+}
+
+table.calendar th {
+    background-color: #f4f4f4;
+}
+
+table.calendar td.day {
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+table.calendar td.day:hover {
+    background-color: #333; /* Cor escura de fundo */
+    color: #fff; /* Cor do texto em contraste */
+}
+
+

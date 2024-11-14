@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block BlockTitulo %}
+Home - Café Celestia
+{% endblock %}
+
+{% include 'nave.html' %}
+
+{% block BlockConteudo %}
+
+<style>
+
+.background-content {
+    background-image: url("/static/img/background.png");
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat;
+    min-height: 100vh; 
+    padding: 20px; 
+}
+
+
+nav {
+    z-index: 1000; 
+    position: relative;
+}
+
+</style>
+
+<div class="background-content">
+
+</div>
+
+{% include 'naverodapé.html' %}
+{% endblock %}

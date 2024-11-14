@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block BlockTitulo %}
+Home - Café Celestia
+{% endblock %}
+
+{% include 'nave.html' %}
+
+{% block BlockConteudo %}
+
+<form action="{{ url_for('ReviewPage', produto_id=item.id) }}" method="POST" enctype="multipart/form-data" class="row mt-4 p-4 round border shadow">
+    {{ form.csrf_token() }}
+    {{ form.descricao.label() }}
+    {{ form.descricao(class="form-control") }}
+    {{ form.estrela.label() }}
+    {{ form.estrela(class="form-control") }}
+    {{ form.btnSubmit(class="btn btn-primary form-control col-12 mt-3") }}
+</form>
+
+{% include 'naverodapé.html' %}
+{% endblock %}

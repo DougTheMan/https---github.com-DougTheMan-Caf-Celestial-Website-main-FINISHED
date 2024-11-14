@@ -1,0 +1,125 @@
+
+{% extends 'base.html' %}
+
+
+    {% block BlockTitulo %}
+
+    Home - Café Celestia
+
+    {% endblock %}
+
+    <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}">
+
+{% include 'naveltda.html' %}
+
+    {% block BlockConteudo %}
+    
+    <div style="background-color: #FFFDFD;">
+
+        <div class=" ms-4 me-4" style="background-repeat: no-repeat; background-position: center; background-position: auto; background-size: 100%; background-image: url({{url_for('static',filename='img/Group 14.png')}});">
+    
+            <br class="mt-2 p-2">
+
+            <div class="container" >
+
+                <div class="container rounded">
+
+                    <br class="mt-4 p-4"><br class="mt-4 p-4">
+
+                    <div class="row justify-content-end">
+                        
+                        <div class="col-3"></div>
+                        <div class="col-4 ">
+
+                            {% if current_user.is_authenticated %}
+
+                                    <div class=" ms-4  p-4 rounded text-center fs-5 " style="background-color: rgba(255, 199, 0, 0.8);" > 
+                                        Você já está logado! como '{{useratual.usuario}}'
+                                    </div>
+
+                             {% endif %}
+
+
+                                {% if erro_mensagem != None %}
+                                <div class="ms-4 p-4 bg-danger text-light rounded">
+                                
+                                    <h5 class="rounded me-3 ms-3 fs-5 text-center">Atenção! Ocorreu algo.
+                                        <br>
+                                       {{ erro_mensagem }}
+                                    </h5>
+
+                                </div>
+                                {% endif %}
+
+
+                        </div>
+
+                        <div class="col me-4 ms-4">
+
+                            <form action="" method="POST" class="row rounded" style="background-color:#CBD2D0;">
+                                <div class=" p-4 rounded" style="background-color:  #0B3C49;">
+                                    <h3 class="mt-2 text-center text-light">Faça Login</h3>
+                                    
+                                </div>
+                                
+                                {{form.csrf_token()}}
+
+                                <br class="mt-4 p-4">
+
+                                <div class="container">
+                                    
+                                
+                                    {{form.email.label(class="mt-2 fs-5")}}
+                                    {{form.email(class="form-control fs-6")}}
+                    
+                                    {{form.senha.label(class="mt-2 fs-5")}}
+                                    {{form.senha(class="form-control fs-6")}}
+
+                                    <br class="mt-2 p-2">
+
+                                    <div class="text-center rounded">
+                                    {{form.btnSubmit(class="fs-4 rounded", style="background-color: #FFFFFF; color:#0B3C49;")}}
+                                </div>
+                                
+
+                                </div>
+                
+                            </form>
+                            
+
+                            <div class="row rounded col-4" style="background-color:  #0B3C49;">
+                                <br class="mt-2 p-2">
+                                <a class="text-light fs-4 text-center p-2" href="{{url_for('CadastroPage')}}" role="button">Faça seu Cadastro</a>
+                                <br class="mt-2 p-2">
+                            </div>
+
+                        </div>
+
+                
+
+                    </div>
+
+                    <div class="row">
+                        
+                    </div>
+
+
+                </div>
+
+                <br class="mt-4 p-4"><br class="mt-4 p-4">
+                <br class="mt-4 p-4"><br class="mt-4 p-4">
+                <br class="mt-4 p-4"><br class="mt-4 p-4">
+                <br class="mt-4 p-4"><br class="mt-4 p-4">
+                <br class="mt-4 p-4"><br class="mt-4 p-4">
+
+
+
+            </div>
+
+        </div>
+
+        {% include 'naverodapéltda.html'%}
+
+    </div>
+
+    {% endblock %}

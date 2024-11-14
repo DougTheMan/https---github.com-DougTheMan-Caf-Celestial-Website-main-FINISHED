@@ -1,0 +1,113 @@
+
+{% extends 'base.html' %}
+
+    {% block BlockTitulo %}
+
+    ADM - Café Celestia
+
+    {% endblock %}
+
+{% include 'nave.html' %}
+
+{% include 'naveadm.html' %}
+
+    {% block BlockConteudo %}
+
+
+    <div class="container">
+
+        <hr>
+
+        <div class="row mt-4">
+        <h2 style="background-color: #0b3c49; color: white; border-radius: 5px; padding-bottom: 5px;">Cadastros de Vouchers</h2>
+        </div>
+        <form action="" method="POST" enctype="multipart/form-data" class="row mt-4 p-4 round border shadow" style="background-color: #debd90; border-radius: 5px;">
+            {{form2.csrf_token}}
+
+            {{form2.nome.label()}}
+            {{form2.nome(class="form-control")}}
+
+            {{form2.descricao.label()}}
+            {{form2.descricao(class="form-control")}}
+
+            {{form2.qntd_cel.label()}}
+            {{form2.qntd_cel(class="form-control")}}
+
+            {{form2.foto.label()}}
+            {{form2.foto(class="form-control")}}
+
+            {{form2.btnSubmit(class="btn btn-primary form-control col-12 mt-3")}} 
+        </form>
+
+        <div class="row mt-4">
+            <h3 class="text-center">Edição de vouchers</h3>
+            <p class="text-center">Ordenado por ID</p>
+            <br>
+            <div class="row" style="background-color: #23373D; padding-bottom: 13px; padding-top: 11px; border-radius: 10px;">
+                {% for linha in context['dados'] %}
+                    <div class="col-md-4 col-lg-3 mb-4" style="display: flex; justify-content: center;">
+                        <div class="card me-2 mt-2" style="width: 18rem;">
+                            {% if linha.foto %}
+                                <img src="/static/img/fotos/{{linha.foto}}" class="card-img-top mt-2 rounded" style="display: block; margin: 0 auto; max-height: 180px; object-fit: cover;" alt="{{linha.foto}}">
+                            {% endif %}
+                            <div class="card-body">
+                                <h4 class="card-title">{{linha.nome}}</h4>
+                                <h5>Celestianus: {{linha.qntd_cel}} R$</h5>
+                                <p class="card-text">Descrição: {{linha.descricao}}</p>
+                                <a class="btn bg-danger text-light" style="justify-self: center;" href="{{url_for('DelVouPage', id=linha.id)}}">DELETAR VOUCHER</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <h3 class="text-center">Vale-Vouchers</h3>
+            <p class="text-center">Ordenado por ID</p>
+            <br>
+            <div class="row" style="background-color: #23373D; padding-bottom: 13px; padding-top: 11px; border-radius: 10px;">
+                {% for linha2 in context2['dados2'] %}
+                    <div class="col-md-4 col-lg-3 mb-4" style="display: flex; justify-content: center;">
+                        <div class="card me-2 mt-2" style="width: 18rem;">
+                            <div class="card-body">
+
+                                {% for linha in context['dados'] %}
+                                {% if linha.id == linha2.id_voucher_comprado %}
+
+                                <h4>
+                                    {{linha.nome}}
+                                </h4>
+                                <p>Id do Voucher: {{linha2.id_voucher_comprado}}</p>
+                                {% endif %}
+                                {% endfor %}
+
+                                {% for linha in context3['dados3'] %}
+                                {% if linha.id == linha2.id_usuario_scomprador %}
+
+                                <h5 class="card-title">
+                                    <br>
+                                    email: {{linha.email}}
+                                </h5>
+                                <p>Id do Usuároio: {{linha2.id_usuario_scomprador}}</p>
+
+                                {% endif %}
+                                {% endfor %}
+
+                                <a class="btn bg-primary text-light" style="justify-self: center;" href="{{url_for('DelVouPageCOMRPADO', id=linha2.id)}}">Esse Voucher foi já pego</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+    
+
+    </div>
+    </div>
+
+    {% include 'naverodapé.html' %}
+
+    {% endblock %}
+    

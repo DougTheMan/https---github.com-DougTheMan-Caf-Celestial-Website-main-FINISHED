@@ -1,0 +1,8 @@
+Aqui uma lista de comandos que usei, caso de erro nessa brincadeira de vai e volta
+aqui tem uma lista que eu ja apliquei no cmd 
+
+python -m venv .venv
+.venv\Scripts\activate
+
+pip install flask
+

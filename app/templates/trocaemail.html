@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+    {% block BlockTitulo %}
+
+    Produtos - Café Celestia
+
+    {% endblock %}
+
+    {% include 'nave.html' %}
+
+    {% block BlockConteudo %}
+
+
+    <div class="container ">  
+
+        <div class="row">
+        
+            <div class="col">
+                <h4 class="mt-4">Trocar o Email é preciso da sua senha ATUAL.<br> Seu e-mail:"{{useratual.email}}" </h4>
+                <p class="ms-2 ">deseja trocar o e-mail?</p>
+            </div>
+            <div class="col-3 mt-4 p-4 text-end">
+                <a href="{{url_for('ConfigUser')}}" style="background-color: #0B3C49;" type="submit" class="btn btn-primary">Voltar</a>
+            </div>
+
+        </div>
+
+        <div class="row mt-2">
+            <div class="rounded" style="background-position: center ;background-image: url({{url_for('static',filename='img/Group 15.png')}});">
+            <br class="mt-4 p-4">
+        </div>
+            
+        
+            <div>
+                    <form method="POST">
+                        <div class="form-group mt-4">
+                            <label class="fs-4" for="">Senha atual:</label>
+                        <input 
+                            type="text" 
+                            class="form-control fs-5" 
+                            id="old_pass" 
+                            name="old_pass" 
+                        >
+                            <label class="fs-4"for="">Novo Email:</label>
+                            <input 
+                                type="text" 
+                                class="form-control fs-5" 
+                                id="new_email" 
+                                name="new_email" 
+                            >
+
+                        <br>
+                        <button  style="background-position: center ;background-image: url({{url_for('static',filename='img/Group 15.png')}});" type="submit" class="btn btn-primary text-dark fs-5">Confirmar</button>
+                    </form>
+                </div>
+        
+            </form>
+        </div>
+
+    </div>
+</div>
+
+    
+
+    
+    {% include 'naverodapé.html' %}
+    
+    {% endblock %}

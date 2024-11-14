@@ -1,0 +1,56 @@
+
+{% extends 'base.html' %}
+
+    {% block BlockTitulo %}
+
+    Editando item
+
+    {% endblock %}
+
+    {% block BlockConteudo %}
+
+
+    <div class="container">
+
+        <div class="row text-center">
+            <div class="col">
+                <h1 class="mt-2" style="background-color: #0b3c49; color: white; border-radius: 5px; padding-bottom: 5px;">Editando Item {{obj.titulo}}</h1>
+                <img class="img-fluid" src="/static/img/fotos/{{obj.foto}}">
+                <h3>Foto-1 Atual</h3>
+            </div>
+        </div>
+
+        <form action="" method="POST" enctype="multipart/form-data" class="row mt-2 p-4 round border shadow" style="background-color: #debd90; border-radius: 5px;">
+            {{form.csrf_token}}
+
+            {{form.titulo.label()}}
+            {{form.titulo(class="form-control", value=obj.titulo)}}
+
+            
+            {{form.descricao.label()}}
+            {{form.descricao(class="form-control ", value=obj.descricao)}}
+
+            
+            {{form.qntdestoque.label()}}
+            {{form.qntdestoque(class="form-control ", value=obj.qntdestoque)}}
+
+            {{form.preco.label()}}
+            {{form.preco(class="form-control", value=obj.preco)}}
+
+            {{form.especial.label()}}
+            {{form.especial(class="form-control", value=obj.especial)}}
+
+            <br>
+            <h3 class="mt-2 bg-danger text-center rounded">Não é possivel modificar fotos, terá que deletar o item se quiser colocar novas fotos ou trocar-las</h3>
+
+            {{form.btnSubmit(class="btn btn-primary form-control col-12 mt-3")}} 
+        </form>
+
+
+    </div>
+
+    {% endblock %}
+{% include 'nave.html' %}
+
+{% include 'naveadm.html' %}
+

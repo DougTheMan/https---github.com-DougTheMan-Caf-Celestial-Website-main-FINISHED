@@ -1,0 +1,46 @@
+
+{% extends 'base.html' %}
+
+    {% block BlockTitulo %}
+
+    INDEX - Café Celestia
+
+    {% endblock %}
+
+    {% include 'nave.html' %}
+
+    {% block  BlockConteudo %}
+
+        @everyone
+        Testando Index
+
+        <p>site feito por rick, mateus e eduardo k (nem tanto) estou mt orgulhoso e felzis por ter compartilhado isso com vcs</p> 
+        <p>Tudo começa em um lugar né? COMO QUE COLOCA FAVICON????</p>
+        Aqui vamos usar para testes e manter esse local escondido
+
+        <a class="btn btn-primary" href="{{url_for('HomePage')}}" role="button">Link HOME</a>
+        <style>
+            body {
+              height: 100%;
+              margin: 0;
+              font-family: Arial, Helvetica, sans-serif;
+            }
+
+            .bg-image{
+                background-image: url("../static/img/fundo.png");
+
+                filter: blur(0.5px);
+                -webkit-filter: blur(0.5px);
+                height: 100%; 
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
+
+
+        </style>
+    <div class="bg-image">
+    </div>
+    {% endblock %}
+
+

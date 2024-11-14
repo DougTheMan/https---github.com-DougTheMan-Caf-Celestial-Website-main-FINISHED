@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block BlockTitulo %}
+ADM - Café Celestia
+{% endblock %}
+
+{% include 'nave.html' %}
+{% include 'naveadm.html' %}
+
+{% block BlockConteudo %}
+
+<div class="container">
+    <h1 style="background-color: #0b3c49; color: white; border-radius: 5px; padding-bottom: 5px;">Registros de Vendas </h1>
+
+    <div class="row">
+        <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col" style="background-color: #debd90; border-radius: 5px;">ID Venda</th>
+                <th scope="col" style="background-color: #debd90; border-radius: 5px;">ID Usuário</th>
+                <th scope="col" style="background-color: #debd90; border-radius: 5px;">ID Item</th>
+                <th scope="col" style="background-color: #debd90; border-radius: 5px;">Quantidade</th>
+                <th scope="col" style="background-color: #debd90; border-radius: 5px;">Total</th>
+                <th scope="col" style="background-color: #debd90; border-radius: 5px;">Hora</th>
+                <th scope="col" style="background-color: #debd90; border-radius: 5px;">Pagamento</th>
+                <th scope="col" style="background-color: #debd90; border-radius: 5px;">Entrega</th>
+                <th scope="col" style="background-color: #debd90; border-radius: 5px;">Compra Finalizada</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for linha in context['dados'] %}
+                <tr>
+                    <th style="background-color: #F2E6CE;">{{linha.id}}</th>
+                    <th style="background-color: #F2E6CE;">{{linha.id_usuario_comprador}}</th>
+                    <th style="background-color: #F2E6CE;">{{linha.id_item_comprado}}</th>
+                    <td style="background-color: #F2E6CE; font-weight: bold;">{{linha.qntd_comprado}}</td>
+                    <td style="background-color: #F2E6CE; font-weight: bold;">{{linha.preco_total_comprado}} R$</td>
+                    <td style="background-color: #F2E6CE; font-weight: bold;">{{linha.tempo.strftime('%d/%m/%Y %H:%M')}}</td>
+                    <td style="background-color: #F2E6CE; font-weight: bold;">{{linha.id_cartao}}</td>
+                    {% if linha.id_endereco != 0 %}
+                        <td style="background-color: #F2E6CE;">{{linha.id_endereco}}</td>
+                    {% else %}
+                        <td style="background-color: #F2E6CE;">Buscar na Loja</td>
+                    {% endif %}
+                    <td style="background-color: #F2E6CE;">
+                        <input type="checkbox" name="enviado_{{linha.id}}" {% if linha.enviado %}checked{% endif %} onchange="marcarEnviado({{ linha.id }})">
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+    </div>
+</div>
+
+{% include 'naverodapé.html' %}
+{% endblock %}

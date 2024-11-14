@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block BlockTitulo %}
+Produtos - Café Celestia
+{% endblock %}
+
+{% include 'nave.html' %}
+
+{% block BlockConteudo %}
+
+<div class="container mt-4" style="background-color: #debd90; border-radius: 10px; color: #0b3c49;">
+    <h1>Reserva para o dia {{ data_reserva }}</h1>
+    <p style="font-weight: bold;">Usuário: {{ useratual.usuario }}</p>
+    <p style="font-weight: bold;">Confirme sua reserva abaixo:</p>
+    <form action="/confirmar_reserva" method="POST">
+        <input type="hidden" name="data_reserva" value="{{ data_reserva }}">
+        <button type="submit" class="btn btn-primary" style="background-color: #0b3c49;">Confirmar Reserva</button>
+    </form>
+    <br>
+</div>
+<br>
+{% include 'naverodapé.html' %}
+{% endblock %}
